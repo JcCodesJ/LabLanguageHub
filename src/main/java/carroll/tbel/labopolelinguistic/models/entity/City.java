@@ -6,24 +6,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "Languages")
+@Table(name = "city")
 @Getter @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class Language {
+@NoArgsConstructor
+public class City {
 
     @Id
-    @Column(name = "Language Id", nullable = false)
-    //Will be done in abbreviations (ex. fr1, en1, it1)
-    private String langId;
-
+    @Column(name = "city id", nullable = false)
+    private String cityId;
     @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
+    private long postCode;
 
-    @ManyToMany
-    private List<Business> business;
+    @ManyToOne
+    private Region region;
 
 }

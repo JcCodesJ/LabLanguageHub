@@ -28,6 +28,14 @@ public class User implements UserDetails {
     private String username;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
+    private String fName;
+    @Column(nullable = false)
+    private String lName;
+    @Column(nullable = false)
+    private String address;
+    @Column(nullable = false)
+    private String emailAddress;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles;
@@ -40,6 +48,9 @@ public class User implements UserDetails {
     private boolean credentialsNonExpired = true;
     @Column(nullable = false)
     private boolean enabled = true;
+
+    @ManyToMany
+    private List<Language> language;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()
