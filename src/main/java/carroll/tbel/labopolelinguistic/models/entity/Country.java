@@ -17,10 +17,11 @@ public class Country {
 
     @Id
     @Column(name = "country id", nullable = false)
+    //Continent names include Asia, Europe, North America, South America, Africa, Australia, Antarctica
     private String countryId;
+
     @Column(nullable = false)
     private String name;
-    //Continent names include Asia, Europe, North America, South America, Africa, Australia, Antarctica
     @Column(nullable = false)
     private String continent;
 

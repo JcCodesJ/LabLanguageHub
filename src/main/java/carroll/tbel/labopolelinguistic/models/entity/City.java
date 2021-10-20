@@ -16,7 +16,9 @@ public class City {
 
     @Id
     @Column(name = "city id", nullable = false)
+    //Will be either
     private String cityId;
+
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)

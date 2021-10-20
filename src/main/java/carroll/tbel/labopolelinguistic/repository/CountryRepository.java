@@ -1,4 +1,7 @@
 package carroll.tbel.labopolelinguistic.repository;
 
-public interface CountryRepository {
+import carroll.tbel.labopolelinguistic.models.entity.Country;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CountryRepository extends JpaRepository<Country, String> {
 }

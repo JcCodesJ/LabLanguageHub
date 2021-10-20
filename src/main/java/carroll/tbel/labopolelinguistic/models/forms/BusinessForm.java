@@ -1,7 +1,6 @@
 package carroll.tbel.labopolelinguistic.models.forms;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
@@ -10,17 +9,21 @@ import java.util.List;
 
 @Data
 @Validated
-public class UserForm {
+public class BusinessForm {
 
-    @Length(min = 4, max = 20)
     @NotBlank
-    private String username;
+    private String businessId;
 
-    @Length(min = 8)
     @NotBlank
-    private String password;
+    private String typeBusiness;
+
+    @NotBlank
+    private String name;
+
+    @NotBlank
+    private String address;
 
     @NotEmpty
-    private List<String> roles;
+    private List<String> businessIds;
 
 }
