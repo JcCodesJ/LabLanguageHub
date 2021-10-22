@@ -23,7 +23,7 @@ public class UserMapper {
                 .build();
     }
 
-    public User forToEntity(UserForm form){
+    public User formToEntity(UserForm form){
         if (form == null)
             return null;
 
