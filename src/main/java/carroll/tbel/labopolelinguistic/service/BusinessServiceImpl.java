@@ -5,11 +5,11 @@ import carroll.tbel.labopolelinguistic.exceptions.ElementNotFoundException;
 import carroll.tbel.labopolelinguistic.mappers.BusinessMapper;
 import carroll.tbel.labopolelinguistic.models.dto.BusinessDTO;
 import carroll.tbel.labopolelinguistic.models.entity.Business;
-import carroll.tbel.labopolelinguistic.models.entity.Language;
+import carroll.tbel.labopolelinguistic.models.entity.City;
 import carroll.tbel.labopolelinguistic.models.forms.BusinessForm;
 import carroll.tbel.labopolelinguistic.models.forms.BusinessUpdateForm;
 import carroll.tbel.labopolelinguistic.repository.BusinessRepository;
-import carroll.tbel.labopolelinguistic.repository.LanguageRepository;
+import carroll.tbel.labopolelinguistic.repository.CityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,12 +21,12 @@ public class BusinessServiceImpl implements BusinessService{
 
     private final BusinessMapper mapper;
     private final BusinessRepository repository;
-    private final LanguageRepository languageRepository;
+    private final CityRepository cityRepository;
 
-    public BusinessServiceImpl(BusinessMapper mapper, BusinessRepository repository, LanguageRepository languageRepository) {
+    public BusinessServiceImpl(BusinessMapper mapper, BusinessRepository repository, CityRepository cityRepository) {
         this.mapper = mapper;
         this.repository = repository;
-        this.languageRepository = languageRepository;
+        this.cityRepository = cityRepository;
     }
 
     @Override
@@ -44,18 +44,20 @@ public class BusinessServiceImpl implements BusinessService{
                 .orElseThrow(ElementNotFoundException::new);
     }
 
+    //TODO fix or change? lines 48-64
     @Override
-    public BusinessDTO insert(BusinessForm toInsert) {
-        if (repository.existsById(form.getBusinessId()) )
+    public BusinessDTO insert(BusinessForm businessForm) {
+        if (repository.existsById(businessForm.getBusinessId()) )
             throw new ElementAlreadyExistsException();
 
-        Business toInsert = mapper.formToEntity(form);
-        Set<Language> language = form.getLanguageIds()
+
+        Business toInsert = mapper.formToEntity(businessForm); //TODO implement formToEntity method
+        Set<City> city = businessForm.getCityIds()
                 .stream()
-                .map(id -> languageRepository.findById(langId)
+                .map(id -> cityRepository.findById(cityId)
                         .orElseThrow(ElementNotFoundException::new))
                 .collect(Collectors.toSet());
-        toInsert.setLanguage(language);
+        toInsert.setCity(city);
 
         toInsert = repository.save(toInsert);
 
@@ -64,11 +66,31 @@ public class BusinessServiceImpl implements BusinessService{
 
     @Override
     public BusinessDTO delete(String businessId) {
-        return null;
+        Business toDelete = repository.findById(businessId)
+                .orElseThrow(ElementAlreadyExistsException::new);
+
+        repository.delete(toDelete);
+
+        return mapper.toDTO(toDelete);
     }
 
     @Override
     public BusinessDTO update(String businessId, BusinessUpdateForm form) {
-        return null;
+        Business toUpdate = repository.findById(businessId)
+                .orElseThrow(ElementAlreadyExistsException::new);
+
+        toUpdate.setTypeBusiness(form.getTypeBusiness());
+        toUpdate.setName(form.getName());
+        toUpdate.setAddress(form.getAddress());
+        Set<City> city = form.getCity()
+                .stream()
+                .map(id -> cityRepository.findById(id)
+                        .orElseThrow(ElementAlreadyExistsException::new))
+                .collect(Collectors.toSet());
+        toUpdate.setCity(city);
+
+        toUpdate = repository.save(toUpdate);
+
+        return mapper.toDTO(toUpdate);
     }
 }

@@ -4,8 +4,6 @@ import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
 
 @Data
 @Validated
@@ -15,6 +13,9 @@ public class BusinessForm {
     private String businessId;
 
     @NotBlank
+    private String cityId;
+
+    @NotBlank
     private String typeBusiness;
 
     @NotBlank
@@ -22,8 +23,5 @@ public class BusinessForm {
 
     @NotBlank
     private String address;
-
-    @NotEmpty
-    private List<String> businessIds;
 
 }
