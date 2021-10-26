@@ -50,7 +50,7 @@ public class BusinessServiceImpl implements BusinessService{
             throw new ElementAlreadyExistsException();
 
 
-        Business toInsert = mapper.formToEntity(businessForm); //TODO implement formToEntity method
+        Business toInsert = mapper.formToEntity(businessForm);
 
         City city = cityRepository.findById(businessForm.getCityId())
                         .orElseThrow(ElementNotFoundException::new);

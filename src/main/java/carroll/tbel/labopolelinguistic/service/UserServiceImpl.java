@@ -1,6 +1,7 @@
 package carroll.tbel.labopolelinguistic.service;
 
 import carroll.tbel.labopolelinguistic.exceptions.ElementNotFoundException;
+import carroll.tbel.labopolelinguistic.exceptions.RoleInvalidException;
 import carroll.tbel.labopolelinguistic.mappers.UserMapper;
 import carroll.tbel.labopolelinguistic.models.dto.UserDTO;
 import carroll.tbel.labopolelinguistic.models.entity.User;
@@ -67,7 +68,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByUsername(username)
                 .orElseThrow( () -> new UsernameNotFoundException("The user with the username provided does not exist") );
     }
