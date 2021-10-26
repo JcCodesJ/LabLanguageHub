@@ -23,9 +23,6 @@ public class BusinessMapper {
                 .address(entity.getName() )
                 .city(
                         entity.getCity()
-                                .stream()
-                                .map(this::toDTO)
-                                .collect(Collectors.toList())
                 )
                 .build();
 
@@ -38,7 +35,7 @@ public class BusinessMapper {
 
         Business business = new Business();
         business.setBusinessId(businessForm.getBusinessId());
-        business.setCityId(businessForm.getCityId());
+       // business.setCityId(businessForm.getCityId());
         business.setTypeBusiness(businessForm.getTypeBusiness());
         business.setName(businessForm.getName());
         business.setAddress(businessForm.getAddress());

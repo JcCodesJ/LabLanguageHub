@@ -17,7 +17,4 @@ public class CountryUpdateForm {
     @NotBlank
     private String continent;
 
-    @NotEmpty
-    private List<String> countryIds;
-
 }

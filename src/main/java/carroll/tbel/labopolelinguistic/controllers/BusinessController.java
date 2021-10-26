@@ -1,18 +1,14 @@
 package carroll.tbel.labopolelinguistic.controllers;
 
-import carroll.tbel.labopolelinguistic.exceptions.ElementNotFoundException;
 import carroll.tbel.labopolelinguistic.models.dto.BusinessDTO;
-import carroll.tbel.labopolelinguistic.models.dto.ErrorDTO;
 import carroll.tbel.labopolelinguistic.models.forms.BusinessForm;
 import carroll.tbel.labopolelinguistic.models.forms.BusinessUpdateForm;
 import carroll.tbel.labopolelinguistic.service.BusinessService;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.Instant;
 import java.util.List;
 
 @RestController
@@ -64,17 +60,6 @@ public class BusinessController {
     @PutMapping(params = "businessId")
     public BusinessDTO update(@RequestParam String businessId, @Valid @RequestBody BusinessUpdateForm form){
         return service.update(businessId, form);
-    }
-
-    public ResponseEntity<ErrorDTO> handle(ElementNotFoundException ex){
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Expires", Instant.now().plusMillis(600_000).toString());
-
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .headers(headers)
-                .body(new ErrorDTO(ex.getMessage()));
     }
 
 }

@@ -13,7 +13,6 @@ import carroll.tbel.labopolelinguistic.repository.CityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,11 +51,10 @@ public class BusinessServiceImpl implements BusinessService{
 
 
         Business toInsert = mapper.formToEntity(businessForm); //TODO implement formToEntity method
-        Set<City> city = businessForm.getCityIds()
-                .stream()
-                .map(id -> cityRepository.findById(cityId)
-                        .orElseThrow(ElementNotFoundException::new))
-                .collect(Collectors.toSet());
+
+        City city = cityRepository.findById(businessForm.getCityId())
+                        .orElseThrow(ElementNotFoundException::new);
+
         toInsert.setCity(city);
 
         toInsert = repository.save(toInsert);
@@ -82,11 +80,10 @@ public class BusinessServiceImpl implements BusinessService{
         toUpdate.setTypeBusiness(form.getTypeBusiness());
         toUpdate.setName(form.getName());
         toUpdate.setAddress(form.getAddress());
-        Set<City> city = form.getCity()
-                .stream()
-                .map(id -> cityRepository.findById(id)
-                        .orElseThrow(ElementAlreadyExistsException::new))
-                .collect(Collectors.toSet());
+
+        City city = cityRepository.findById(form.getCityId())
+                .orElseThrow(ElementNotFoundException::new);
+
         toUpdate.setCity(city);
 
         toUpdate = repository.save(toUpdate);

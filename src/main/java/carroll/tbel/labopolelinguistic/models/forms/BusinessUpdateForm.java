@@ -15,12 +15,12 @@ public class BusinessUpdateForm {
     private String typeBusiness;
 
     @NotBlank
+    private String cityId;
+
+    @NotBlank
     private String name;
 
     @NotBlank
     private String address;
-
-    @NotEmpty
-    private List<String> businessIds;
 
 }

@@ -3,8 +3,6 @@ package carroll.tbel.labopolelinguistic.models.dto;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 @Builder
 public class CityDTO {
@@ -12,9 +10,10 @@ public class CityDTO {
     private String cityId;
     private String name;
     private long postCode;
-    private List<CityDTO.BusinessDTO> business;
+    private CityDTO.BusinessDTO business;
 
-
+    @Data
+    @Builder
     public static class BusinessDTO{
 
         private String businessId;

@@ -32,8 +32,8 @@ public class CountryServiceImpl implements CountryService{
     }
 
     @Override
-    public CountryDTO insert(CountryForm toInsert) {
-        if (countryRepository.existsById(countryForm.getCountryId()) )
+    public CountryDTO insert(CountryForm insertInfo) {
+        if (countryRepository.existsById(insertInfo.getCountryId()) )
             throw new ElementAlreadyExistsException();
 
 
@@ -61,12 +61,12 @@ public class CountryServiceImpl implements CountryService{
 
         toUpdate.setName(countryUpdateForm.getName());
         toUpdate.setContinent(countryUpdateForm.getContinent());
-        Set<Country> country = countryUpdateForm.getCountry()
-                .stream()
-                .map(id -> countryRepository.findById(countryId)
-                        .orElseThrow(ElementAlreadyExistsException::new))
-                .collect(Collectors.toSet());
-        toUpdate.setCountry(country);
+//        Set<Country> country = countryUpdateForm.getCountry()
+//                .stream()
+//                .map(id -> countryRepository.findById(countryId)
+//                        .orElseThrow(ElementAlreadyExistsException::new))
+//                .collect(Collectors.toSet());
+//        toUpdate.setCountry(country);
 
         toUpdate = countryRepository.save(toUpdate);
 

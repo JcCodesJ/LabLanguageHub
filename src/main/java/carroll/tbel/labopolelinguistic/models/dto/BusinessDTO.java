@@ -13,14 +13,16 @@ public class BusinessDTO {
     private String typeBusiness;
     private String name;
     private String address;
-    private List<BusinessDTO.CityDTO> city;
+    private BusinessDTO.CityDTO city;
 
-
+    @Data
+    @Builder
     public static class CityDTO{
 
         private String cityId;
         private String name;
         private long postCode;
-    }
+
+    } // map City -> BusinessDTO.CityDTO
 
 }
