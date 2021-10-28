@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class City {
 
     @Id
-    @Column(name = "city id", nullable = false)
+    @Column(name = "cityId", nullable = false)
     //Will be either
     private String cityId;
     @Column(nullable = false)

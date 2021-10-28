@@ -2,13 +2,15 @@ package carroll.tbel.labopolelinguistic.mappers;
 
 import carroll.tbel.labopolelinguistic.models.dto.BusinessDTO;
 import carroll.tbel.labopolelinguistic.models.entity.Business;
+import carroll.tbel.labopolelinguistic.models.entity.City;
 import carroll.tbel.labopolelinguistic.models.forms.BusinessForm;
 import carroll.tbel.labopolelinguistic.models.forms.BusinessUpdateForm;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
-
 @Service
+@Getter @Setter
 public class BusinessMapper {
 
     public BusinessDTO toDTO(Business entity){
@@ -23,6 +25,7 @@ public class BusinessMapper {
                 .address(entity.getName() )
                 .city(
                         entity.getCity()
+                                .map()
                 )
                 .build();
 
@@ -55,6 +58,15 @@ public class BusinessMapper {
         return business;
     }
 
+/*
+    @Override
+    public BusinessDTO entityToDto(City city) {
+        return null;
+    }
 
-
+    @Override
+    public Business dtoToEntity(BusinessDTO businessDTO) {
+        return null;
+    }
+    */
 }
